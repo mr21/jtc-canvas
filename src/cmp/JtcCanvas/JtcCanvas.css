@@ -1,0 +1,19 @@
+#jtc-canvas {
+	position: relative;
+	flex: 1;
+}
+
+#jtc-canvas canvas {
+	width: 100%;
+	height: 100%;
+	background-color: #0003;
+}
+
+#jtc-canvas-cross-center {
+	position: absolute;
+	inset: 50% 0 0 50%;
+	margin: -2px 0 0 -2px;
+	width: 4px;
+	height: 4px;
+	background-color: #000;
+}
