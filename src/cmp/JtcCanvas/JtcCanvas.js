@@ -131,6 +131,6 @@ function JtcCanvas() {
 
 	return cE( 'div', { id: 'jtc-canvas' },
 		cE( 'canvas', { ref: cnvRef, onClick: onClickCanvas } ),
-		cE( 'div', { id: 'jtc-canvas-cross-center' } ),
+		// cE( 'div', { id: 'jtc-canvas-cross-center' } ),
 	);
 }

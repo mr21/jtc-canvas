@@ -9,6 +9,7 @@
 	background-color: #0003;
 }
 
+/** /
 #jtc-canvas-cross-center {
 	position: absolute;
 	inset: 50% 0 0 50%;
@@ -17,3 +18,4 @@
 	height: 4px;
 	background-color: #000;
 }
+/**/
