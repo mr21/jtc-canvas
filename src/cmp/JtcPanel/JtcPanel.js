@@ -1,10 +1,16 @@
 "use strict";
 
 function JtcPanel( p ) {
+	const {
+		onCallAction,
+		...props
+	} = p;
+
 	const store = useRef( {} ).current;
 	const [ dur, setDur ] = useState( 1 );
 
 	store.dur = dur;
+	store.onCallAction = onCallAction;
 
 	const onChangeDuration = useCallback( e => {
 		setDur( e.target.value );
@@ -28,13 +34,13 @@ function JtcPanel( p ) {
 		switch ( act ) {
 			case 'save':
 			case 'stop':
-			case 'addRect': p.onCallAction( act ); break;
-			case 'play': p.onCallAction( act, store.dur ); break;
-			case 'load': jtcu_data_loadFile().then( file => p.onCallAction( act, file ) ); break;
+			case 'addRect': store.onCallAction( act ); break;
+			case 'play': store.onCallAction( act, store.dur ); break;
+			case 'load': jtcu_data_loadFile().then( file => store.onCallAction( act, file ) ); break;
 		}
 	}, [] );
 
-	return cE( 'div', { id: 'jtc-panel', onClick: onClickPanel },
+	return cE( 'div', { ...props, id: 'jtc-panel', onClick: onClickPanel },
 		cE( 'button', { 'data-action': 'addRect' }, 'Add rectangle' ),
 		cE( 'hr', null ),
 		cE( 'label', null,
