@@ -1,6 +1,11 @@
 "use strict";
 
 const JtcCanvas = React.forwardRef( ( p, ref ) => {
+	const {
+		onAnimationEnded = jtcu_fun_noop,
+		...props
+	} = p;
+
 	const cnvRef = useRef();
 	const store = useRef( {} ).current;
 
@@ -11,6 +16,7 @@ const JtcCanvas = React.forwardRef( ( p, ref ) => {
 	store.animStarted ??= false;
 	store.animProgress ??= 0;
 	store.animStartTime ||= 0;
+	store.onAnimationEnded = onAnimationEnded;
 
 	const loadScene = useCallback( obj => {
 		store.rects = jtcu_data_jsonCopy( obj );
@@ -42,6 +48,7 @@ const JtcCanvas = React.forwardRef( ( p, ref ) => {
 		store.animStarted = false;
 		store.animProgress = 0;
 		redraw();
+		store.onAnimationEnded();
 	}, [] );
 
 	const frameAnim = useCallback( () => {
@@ -50,7 +57,9 @@ const JtcCanvas = React.forwardRef( ( p, ref ) => {
 	}, [] );
 
 	const playAnim = useCallback( dur => {
-		stopAnim();
+		if ( store.animStarted ) {
+			stopAnim();
+		}
 		store.animDur = dur;
 		store.animStarted = true;
 		store.animStartTime = jtcu_fun_getNow();
@@ -131,7 +140,7 @@ const JtcCanvas = React.forwardRef( ( p, ref ) => {
 		};
 	}, [] );
 
-	return cE( 'div', { ...p, id: 'jtc-canvas', ref },
+	return cE( 'div', { ...props, id: 'jtc-canvas', ref },
 		cE( 'canvas', { ref: cnvRef, onClick: onClickCanvas } ),
 		// cE( 'div', { id: 'jtc-canvas-cross-center' } ),
 	);
