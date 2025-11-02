@@ -14,6 +14,7 @@ const JtcCanvas = React.forwardRef( ( p, ref ) => {
 
 	const loadScene = useCallback( obj => {
 		store.rects = jtcu_data_jsonCopy( obj );
+		store.nbRects = Object.keys( store.rects ).length;
 		redraw();
 	}, [] );
 
