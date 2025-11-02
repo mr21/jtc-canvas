@@ -12,6 +12,15 @@ function JtcCanvas() {
 	store.animProgress ??= 0;
 	store.animStartTime ||= 0;
 
+	const loadScene = useCallback( obj => {
+		store.rects = jtcu_data_jsonCopy( obj );
+		redraw();
+	}, [] );
+
+	const stringifyScene = useCallback( () => {
+		return JSON.stringify( store.rects );
+	}, [] );
+
 	const addRect = useCallback( () => {
 		store.rects[ jtcu_data_getNextId( store.rects ) ] = {
 			x: 5 + jtcu_math_randomInt( 90 ),
@@ -31,14 +40,12 @@ function JtcCanvas() {
 		store.animId = null;
 		store.animStarted = false;
 		store.animProgress = 0;
+		redraw();
 	}, [] );
 
 	const frameAnim = useCallback( () => {
 		store.animProgress = Math.min( ( jtcu_fun_getNow() - store.animStartTime ) / store.animDur, 1 );
-		redraw();
-		if ( store.animProgress >= 1 ) {
-			stopAnim();
-		}
+		store.animProgress < 1 ? redraw() : stopAnim();
 	}, [] );
 
 	const playAnim = useCallback( dur => {
@@ -112,6 +119,9 @@ function JtcCanvas() {
 
 		cnv.addRect = addRect;
 		cnv.playAnim = playAnim;
+		cnv.stopAnim = stopAnim;
+		cnv.loadScene = loadScene;
+		cnv.stringifyScene = stringifyScene;
 		jtcu_dom_observeSize( cnv, onResize );
 		return () => {
 			jtcu_dom_unobserveSize( cnv, onResize );

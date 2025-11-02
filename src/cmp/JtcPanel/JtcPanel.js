@@ -27,8 +27,10 @@ function JtcPanel( p ) {
 
 		switch ( act ) {
 			case 'save':
+			case 'stop':
 			case 'addRect': p.onCallAction( act ); break;
 			case 'play': p.onCallAction( act, store.dur ); break;
+			case 'load': jtcu_data_loadFile().then( file => p.onCallAction( act, file ) ); break;
 		}
 	}, [] );
 
@@ -40,7 +42,9 @@ function JtcPanel( p ) {
 			cE( 'input', { type: 'number', min: .1, step: .1, value: dur, onChange: onChangeDuration, onFocus: onFocusDuration, onBlur: onBlurDuration } ),
 		),
 		cE( 'button', { 'data-action': 'play' }, 'Play' ),
+		cE( 'button', { 'data-action': 'stop' }, 'Stop' ),
 		cE( 'hr', null ),
-		cE( 'button', { 'data-action': 'save' }, 'Download .json' ),
+		cE( 'button', { 'data-action': 'load' }, 'Load' ),
+		cE( 'button', { 'data-action': 'save' }, 'Save (json)' ),
 	);
 }
