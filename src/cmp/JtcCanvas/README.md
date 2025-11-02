@@ -1,6 +1,6 @@
 # JtcCanvas
 
-`JtcCanvas` is a React component, instantiable by with:
+`JtcCanvas` is a React component, instantiable with:
 * `React.createElement( JtcCanvas, { ref, onAnimationEnded } )` or
 * `<JtcCanvas ref={} onAnimationEnded={}/>` in JSX.
 

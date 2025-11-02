@@ -1,6 +1,6 @@
 # JtcPanel
 
-`JtcPanel` is a React component, instantiable by with:
+`JtcPanel` is a React component, instantiable with:
 * `React.createElement( JtcPanel, { onCallAction, playing } )` or
 * `<JtcPanel onCallAction={} playing={}/>` in JSX.
 

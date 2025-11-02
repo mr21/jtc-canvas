@@ -1,6 +1,6 @@
 # Jtc
 
-`Jtc` is a React component, instantiable by with:
+`Jtc` is a React component, instantiable with:
 * `React.createElement( Jtc )` or
 * `<Jtc/>` in JSX.
 
