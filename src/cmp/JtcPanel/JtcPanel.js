@@ -2,6 +2,7 @@
 
 function JtcPanel( p ) {
 	const {
+		playing = false,
 		onCallAction = jtcu_fun_noop,
 		...props
 	} = p;
@@ -47,8 +48,8 @@ function JtcPanel( p ) {
 			cE( 'span', null, 'Duration (sec)' ),
 			cE( 'input', { type: 'number', min: .1, step: .1, value: dur, onChange: onChangeDuration, onFocus: onFocusDuration, onBlur: onBlurDuration } ),
 		),
-		cE( 'button', { 'data-action': 'play' }, 'Play' ),
-		cE( 'button', { 'data-action': 'stop' }, 'Stop' ),
+		cE( 'button', { 'data-action': 'play' }, playing ? 'Restart' : 'Start' ),
+		cE( 'button', { 'data-action': 'stop', disabled: !playing }, 'Stop' ),
 		cE( 'hr', null ),
 		cE( 'button', { 'data-action': 'load' }, 'Load' ),
 		cE( 'button', { 'data-action': 'save' }, 'Save (json)' ),
