@@ -42,12 +42,16 @@ const JtcCanvas = React.forwardRef( ( p, ref ) => {
 		redraw();
 	}, [] );
 
-	const stopAnim = useCallback( () => {
+	const stopAnim_ = useCallback( () => {
 		jtcu_fun_clearInterval( store.animId );
 		store.animId = null;
 		store.animStarted = false;
 		store.animProgress = 0;
 		redraw();
+	}, [] );
+
+	const stopAnim = useCallback( () => {
+		stopAnim_();
 		store.onAnimationEnded();
 	}, [] );
 
@@ -58,7 +62,7 @@ const JtcCanvas = React.forwardRef( ( p, ref ) => {
 
 	const playAnim = useCallback( dur => {
 		if ( store.animStarted ) {
-			stopAnim();
+			stopAnim_();
 		}
 		store.animDur = dur;
 		store.animStarted = true;
