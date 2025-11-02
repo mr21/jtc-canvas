@@ -129,7 +129,7 @@ const JtcCanvas = React.forwardRef( ( p, ref ) => {
 			jtcu_dom_unobserveSize( cnv, onResize );
 			jtcu_fun_clearInterval( store.animId );
 		};
-	} );
+	}, [] );
 
 	return cE( 'div', { ...p, id: 'jtc-canvas', ref },
 		cE( 'canvas', { ref: cnvRef, onClick: onClickCanvas } ),
