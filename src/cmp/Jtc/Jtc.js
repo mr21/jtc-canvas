@@ -1,10 +1,10 @@
 "use strict";
 
 function Jtc() {
-	const rootRef = useRef();
+	const canvasRef = useRef();
 
 	const onCallAction = useCallback( ( act, arg0 ) => {
-		const cnv = rootRef.current.querySelector( 'canvas' );
+		const cnv = canvasRef.current;
 
 		switch ( act ) {
 			case 'addRect': cnv.addRect(); break;
@@ -16,8 +16,8 @@ function Jtc() {
 		}
 	}, [] );
 
-	return cE( 'div', { id: 'jtc', ref: rootRef },
-		cE( JtcCanvas ),
+	return cE( 'div', { id: 'jtc' },
+		cE( JtcCanvas, { ref: canvasRef } ),
 		cE( JtcPanel, { onCallAction } ),
 	);
 }

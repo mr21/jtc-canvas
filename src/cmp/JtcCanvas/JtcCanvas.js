@@ -1,6 +1,6 @@
 "use strict";
 
-function JtcCanvas() {
+const JtcCanvas = React.forwardRef( ( p, ref ) => {
 	const cnvRef = useRef();
 	const store = useRef( {} ).current;
 
@@ -116,12 +116,13 @@ function JtcCanvas() {
 
 	useEffect( () => {
 		const cnv = cnvRef.current;
+		const root = cnv.parentNode;
 
-		cnv.addRect = addRect;
-		cnv.playAnim = playAnim;
-		cnv.stopAnim = stopAnim;
-		cnv.loadScene = loadScene;
-		cnv.stringifyScene = stringifyScene;
+		root.addRect = addRect;
+		root.playAnim = playAnim;
+		root.stopAnim = stopAnim;
+		root.loadScene = loadScene;
+		root.stringifyScene = stringifyScene;
 		jtcu_dom_observeSize( cnv, onResize );
 		return () => {
 			jtcu_dom_unobserveSize( cnv, onResize );
@@ -129,8 +130,8 @@ function JtcCanvas() {
 		};
 	} );
 
-	return cE( 'div', { id: 'jtc-canvas' },
+	return cE( 'div', { ...p, id: 'jtc-canvas', ref },
 		cE( 'canvas', { ref: cnvRef, onClick: onClickCanvas } ),
 		// cE( 'div', { id: 'jtc-canvas-cross-center' } ),
 	);
-}
+} );
