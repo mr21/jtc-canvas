@@ -1,3 +1,5 @@
+function jtcu_fun_noop() {}
+
 function jtcu_fun_getNow() {
 	return Date.now() / 1000;
 }
