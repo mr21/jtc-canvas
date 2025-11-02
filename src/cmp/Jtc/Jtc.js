@@ -1,6 +1,6 @@
 "use strict";
 
-function Jtc() {
+function Jtc( p ) {
 	const [ playing, setPlaying ] = useState( false ); 
 
 	const canvasRef = useRef();
@@ -18,7 +18,7 @@ function Jtc() {
 		}
 	}, [] );
 
-	return cE( 'div', { id: 'jtc' },
+	return cE( 'div', { ...p, id: 'jtc' },
 		cE( JtcCanvas, { onAnimationEnded, ref: canvasRef } ),
 		cE( JtcPanel, { playing, onCallAction } ),
 	);
