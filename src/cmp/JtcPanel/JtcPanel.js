@@ -2,7 +2,7 @@
 
 function JtcPanel( p ) {
 	const {
-		onCallAction,
+		onCallAction = jtcu_fun_noop,
 		...props
 	} = p;
 
