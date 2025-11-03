@@ -1,5 +1,12 @@
 # jtc-canvas
 
+## build
+
+Just type in a shell:  
+$> `tsc`
+
+It will use the `tsconfig.json` file to transpile all the JS files into the TS folder `dist/`.
+
 ## documentation
 
 * src/
