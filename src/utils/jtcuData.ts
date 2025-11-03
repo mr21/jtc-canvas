@@ -1,4 +1,4 @@
-export function jtcu_data_newArray( l: number, fn: Function ) {
+export function jtcu_data_newArray( l: number, fn: any ) {
 	return fn === undefined
 		? new Array( l )
 		: typeof fn === 'function'
