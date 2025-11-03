@@ -4,11 +4,11 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>Jitter Technical Challenge</title>
-<link rel="stylesheet" href="cmp/root/reset.css"/>
-<link rel="stylesheet" href="cmp/root/root.css"/>
-<link rel="stylesheet" href="cmp/Jtc/jtc.css"/>
-<link rel="stylesheet" href="cmp/JtcPanel/JtcPanel.css"/>
-<link rel="stylesheet" href="cmp/JtcCanvas/JtcCanvas.css"/>
+<link rel="stylesheet" href="src/cmp/root/reset.css"/>
+<link rel="stylesheet" href="src/cmp/root/root.css"/>
+<link rel="stylesheet" href="src/cmp/Jtc/jtc.css"/>
+<link rel="stylesheet" href="src/cmp/JtcPanel/JtcPanel.css"/>
+<link rel="stylesheet" href="src/cmp/JtcCanvas/JtcCanvas.css"/>
 </head>
 <body>
 
@@ -20,10 +20,6 @@
 <script src="dep/react.min.js"></script>
 <script src="dep/react-dom.min.js"></script>
 <!-- ....................................................................... -->
-<script type="module">
-import { Jtc } from './cmp/Jtc/Jtc.js';
-
-ReactDOM.createRoot( document.querySelector( '#root' ) ).render( React.createElement( Jtc ) );
-</script>
+<script type="module" src="src/run.js"></script>
 </body>
 </html>
