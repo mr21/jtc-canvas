@@ -1,3 +1,4 @@
+declare const React: any;
 import {
 	jtcu_data_readJSONFile,
 	jtcu_data_downloadText,

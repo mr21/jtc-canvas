@@ -1,3 +1,4 @@
+declare const React: any;
 import {
 	jtcu_data_jsonCopy,
 	jtcu_data_getNextId,

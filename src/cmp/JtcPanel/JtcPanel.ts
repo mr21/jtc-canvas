@@ -1,3 +1,4 @@
+declare const React: any;
 import {
 	jtcu_fun_noop,
 	jtcu_data_loadFile,
