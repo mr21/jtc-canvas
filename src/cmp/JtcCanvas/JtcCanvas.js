@@ -1,6 +1,27 @@
-"use strict";
+import {
+	jtcu_data_jsonCopy,
+	jtcu_data_getNextId,
+	jtcu_math_randomInt,
+	jtcu_math_randomFloat,
+	jtcu_math_randomRGB,
+	jtcu_math_clickRect,
+	jtcu_dom_observeSize,
+	jtcu_dom_unobserveSize,
+	jtcu_fun_noop,
+	jtcu_fun_getNow,
+	jtcu_fun_setInterval,
+	jtcu_fun_clearInterval,
+} from '../../utils/index.js';
 
-const JtcCanvas = React.forwardRef( ( p, ref ) => {
+const {
+	useRef,
+	useEffect,
+	useCallback,
+	forwardRef,
+	createElement: cE,
+} = React;
+
+export const JtcCanvas = forwardRef( ( p, ref ) => {
 	const {
 		onAnimationEnded = jtcu_fun_noop,
 		...props

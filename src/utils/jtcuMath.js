@@ -1,10 +1,12 @@
-function jtcu_math_inRange( x, a, b ) {
+import { jtcu_data_newArray } from './jtcuData.js';
+
+export function jtcu_math_inRange( x, a, b ) {
 	return a < b
 		? a <= x && x <= b
 		: b <= x && x <= a;
-}
+};
 
-function jtcu_math_clickRect( mx, my, r ) {
+export function jtcu_math_clickRect( mx, my, r ) {
 	const xax = Math.cos( -r.rad );
 	const xay = Math.sin( -r.rad );
 	const x = mx - r.x;
@@ -16,20 +18,20 @@ function jtcu_math_clickRect( mx, my, r ) {
 		jtcu_math_inRange( x2, 0, 1 ) &&
 		jtcu_math_inRange( y2, 0, 1 )
 	);
-}
+};
 
-function jtcu_math_randomFloat( rng = 2 ** 32 ) {
+export function jtcu_math_randomFloat( rng = 2 ** 32 ) {
 	return Math.random() * rng;
-}
+};
 
-function jtcu_math_randomInt( rng ) {
+export function jtcu_math_randomInt( rng ) {
 	return Math.floor( jtcu_math_randomFloat( rng ) );
-}
+};
 
-function jtcu_math_randomPick( arr ) {
+export function jtcu_math_randomPick( arr ) {
 	return arr[ jtcu_math_randomInt( arr.length ) ];
-}
+};
 
-function jtcu_math_randomRGB() {
+export function jtcu_math_randomRGB() {
 	return `#${ jtcu_data_newArray( 6, () => jtcu_math_randomPick( '0123456789abcdef' ) ).join( '' ) }`;
-}
+};

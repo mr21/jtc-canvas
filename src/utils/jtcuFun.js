@@ -1,10 +1,10 @@
-function jtcu_fun_noop() {}
+export function jtcu_fun_noop() {};
 
-function jtcu_fun_getNow() {
+export function jtcu_fun_getNow() {
 	return Date.now() / 1000;
-}
+};
 
-function jtcu_fun_setInterval( fn, sec ) {
+export function jtcu_fun_setInterval( fn, sec ) {
 	const ms = Math.max( 0, sec * 1000 | 0 );
 
 	if ( ms ) {
@@ -21,13 +21,13 @@ function jtcu_fun_setInterval( fn, sec ) {
 
 	fn2();
 	return obj;
-}
+};
 
-function jtcu_fun_clearInterval( id ) {
+export function jtcu_fun_clearInterval( id ) {
 	if ( id && typeof id === 'object' ) {
 		cancelAnimationFrame( id.id );
 		id.id = false;
 	} else {
 		clearInterval( id );
 	}
-}
+};

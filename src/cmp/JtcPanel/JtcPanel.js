@@ -1,6 +1,16 @@
-"use strict";
+import {
+	jtcu_fun_noop,
+	jtcu_data_loadFile,
+} from '../../utils/index.js';
 
-function JtcPanel( p ) {
+const {
+	useRef,
+	useState,
+	useCallback,
+	createElement: cE,
+} = React;
+
+export function JtcPanel( p ) {
 	const {
 		playing = false,
 		onCallAction = jtcu_fun_noop,
@@ -54,4 +64,4 @@ function JtcPanel( p ) {
 		cE( 'button', { 'data-action': 'load' }, 'Load' ),
 		cE( 'button', { 'data-action': 'save' }, 'Save (json)' ),
 	);
-}
+};

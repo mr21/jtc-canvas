@@ -1,9 +1,22 @@
-"use strict";
+import {
+	jtcu_data_readJSONFile,
+	jtcu_data_downloadText,
+} from'../../utils/index.js';
 
-function Jtc( p ) {
-	const [ playing, setPlaying ] = useState( false ); 
+const {
+	useRef,
+	useState,
+	useCallback,
+	createElement: cE,
+} = React;
 
+import { JtcPanel } from '../JtcPanel/JtcPanel.js';
+import { JtcCanvas } from '../JtcCanvas/JtcCanvas.js';
+
+export function Jtc( p ) {
 	const canvasRef = useRef();
+
+	const [ playing, setPlaying ] = useState( false ); 
 
 	const onAnimationEnded = useCallback( () => setPlaying( false ), [] );
 	const onCallAction = useCallback( ( act, arg0 ) => {
@@ -22,4 +35,4 @@ function Jtc( p ) {
 		cE( JtcCanvas, { onAnimationEnded, ref: canvasRef } ),
 		cE( JtcPanel, { playing, onCallAction } ),
 	);
-}
+};
