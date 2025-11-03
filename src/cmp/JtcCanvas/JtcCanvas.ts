@@ -31,7 +31,7 @@ type props = {
 	onAnimationEnded: () => void,
 };
 
-export const JtcCanvas = forwardRef( ( p: props, ref: any ) => {
+export const JtcCanvas = forwardRef( ( p: props, ref: object ) => {
 	const {
 		onAnimationEnded = jtcu_fun_noop,
 		...props

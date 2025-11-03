@@ -32,26 +32,26 @@ export function jtcu_data_downloadText( name: string, txt: string ) {
 	jtcu_data_downloadURL( name, URL.createObjectURL( new Blob( [ txt ] ) ) );
 };
 
-export function jtcu_data_loadFile() {
+export function jtcu_data_loadFile(): Promise<File | null> {
 	return new Promise( ( res, rej ) => {
 		const inp = document.createElement( 'input' );
 
 		inp.setAttribute( 'type', 'file' );
-		inp.onchange = e => res( inp.files?.[ 0 ] );
+		inp.onchange = e => res( inp.files?.[ 0 ] || null );
 		inp.click();
 	} );
 };
 
-export function jtcu_data_readFile( file: File ) {
+export function jtcu_data_readFile( file: File ): Promise<string> {
 	return new Promise( ( res, rej ) => {
 		const fr = new FileReader();
 
-		fr.onload = () => res( fr.result );
+		fr.onload = () => res( typeof fr.result === 'string' ? fr.result : '' );
 		fr.onerror = () => rej( 'Error reading the file. Please try again.' );
 		fr.readAsText( file );
 	} );
 };
 
-export function jtcu_data_readJSONFile( file: File ) {
-	return jtcu_data_readFile( file ).then( s => JSON.parse );
+export function jtcu_data_readJSONFile( file: File ): Promise<any> {
+	return jtcu_data_readFile( file ).then( ( s: string ) => JSON.parse( s ) );
 };
