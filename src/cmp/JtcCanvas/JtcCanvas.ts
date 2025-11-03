@@ -3,6 +3,7 @@ import {
 	jtcu_data_getNextId,
 	jtcu_math_randomInt,
 	jtcu_math_randomFloat,
+	jtcu_math_rect, // type
 	jtcu_math_randomRGB,
 	jtcu_math_clickRect,
 	jtcu_dom_observeSize,
@@ -21,7 +22,15 @@ const {
 	createElement: cE,
 } = React;
 
-export const JtcCanvas = forwardRef( ( p, ref ) => {
+export type JtcCanvasScene = {
+	[ key: string ]: jtcu_math_rect;
+};
+
+type props = {
+	onAnimationEnded: () => void,
+};
+
+export const JtcCanvas = forwardRef( ( p: props, ref: any ) => {
 	const {
 		onAnimationEnded = jtcu_fun_noop,
 		...props
@@ -39,7 +48,7 @@ export const JtcCanvas = forwardRef( ( p, ref ) => {
 	store.animStartTime ||= 0;
 	store.onAnimationEnded = onAnimationEnded;
 
-	const loadScene = useCallback( obj => {
+	const loadScene = useCallback( ( obj: JtcCanvasScene ) => {
 		store.rects = jtcu_data_jsonCopy( obj );
 		store.nbRects = Object.keys( store.rects ).length;
 		redraw();
@@ -50,7 +59,7 @@ export const JtcCanvas = forwardRef( ( p, ref ) => {
 	}, [] );
 
 	const addRect = useCallback( () => {
-		store.rects[ jtcu_data_getNextId( store.rects ) ] = {
+		const r: jtcu_math_rect = {
 			x: 5 + jtcu_math_randomInt( 90 ),
 			y: 5 + jtcu_math_randomInt( 90 ),
 			z: store.nbRects,
@@ -59,6 +68,8 @@ export const JtcCanvas = forwardRef( ( p, ref ) => {
 			rad: jtcu_math_randomFloat( Math.PI ),
 			col: jtcu_math_randomRGB(),
 		};
+
+		store.rects[ jtcu_data_getNextId( store.rects ) ] = r;
 		++store.nbRects;
 		redraw();
 	}, [] );
@@ -81,7 +92,7 @@ export const JtcCanvas = forwardRef( ( p, ref ) => {
 		store.animProgress < 1 ? redraw() : stopAnim();
 	}, [] );
 
-	const playAnim = useCallback( dur => {
+	const playAnim = useCallback( ( dur: number ) => {
 		if ( store.animStarted ) {
 			stopAnim_();
 		}
@@ -91,7 +102,7 @@ export const JtcCanvas = forwardRef( ( p, ref ) => {
 		store.animId = jtcu_fun_setInterval( frameAnim, 0 );
 	}, [] );
 
-	const onResize = useCallback( ( w, h ) => {
+	const onResize = useCallback( ( w: number, h: number ) => {
 		cnvRef.current.width = w;
 		cnvRef.current.height = h;
 		redraw();
@@ -103,10 +114,10 @@ export const JtcCanvas = forwardRef( ( p, ref ) => {
 		const w = cnv.width;
 		const h = cnv.height;
 		const animRad = store.animProgress * 2 * Math.PI;
-		const arrRects = Object.values( store.rects ).sort( ( a, b ) => a.z - b.z );
+		const arrRects = Object.values( store.rects ).sort( ( a: any, b: any ) => a.z - b.z );
 
 		ctx.clearRect( 0, 0, w, h );
-		arrRects.forEach( r => {
+		arrRects.forEach( ( r: any ) => {
 			const rx = r.x / 100 * w;
 			const ry = r.y / 100 * h;
 			const rw = r.w / 100 * w;
@@ -123,7 +134,7 @@ export const JtcCanvas = forwardRef( ( p, ref ) => {
 		} );
 	}, [] );
 
-	const onClickCanvas = useCallback( e => {
+	const onClickCanvas = useCallback( ( e: any ) => {
 		const cnv = e.target;
 		const bcr = cnv.getBoundingClientRect();
 		const mx = e.clientX - bcr.x;
@@ -132,16 +143,19 @@ export const JtcCanvas = forwardRef( ( p, ref ) => {
 		const h = cnv.height;
 		const animRad = store.animProgress * 2 * Math.PI;
 		const rect = Object.entries( store.rects )
-			.sort( ( a, b ) => b[ 1 ].z - a[ 1 ].z )
-			.find( ( [ id, r ] ) => (
-				jtcu_math_clickRect( mx, my, {
+			.sort( ( a: any, b: any ) => b[ 1 ].z - a[ 1 ].z )
+			.find( ( [ id, r ]: [ string, any ] ) => {
+				const r2: jtcu_math_rect = {
 					x: r.x / 100 * w,
 					y: r.y / 100 * h,
 					w: r.w / 100 * w,
 					h: r.h / 100 * h,
+					z: 0,
 					rad: r.rad + animRad,
-				} )
-			) );
+				};
+
+				return jtcu_math_clickRect( mx, my, r2 );
+			} );
 
 		if ( rect ) {
 			store.rects[ rect[ 0 ] ].col = jtcu_math_randomRGB();

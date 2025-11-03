@@ -13,13 +13,13 @@ const {
 import { JtcPanel } from '../JtcPanel/JtcPanel.js';
 import { JtcCanvas } from '../JtcCanvas/JtcCanvas.js';
 
-export function Jtc( p ) {
+export function Jtc( p: object ) {
 	const canvasRef = useRef();
 
 	const [ playing, setPlaying ] = useState( false ); 
 
 	const onAnimationEnded = useCallback( () => setPlaying( false ), [] );
-	const onCallAction = useCallback( ( act, arg0 ) => {
+	const onCallAction = useCallback( ( act: string, arg0: any ) => {
 		const cnv = canvasRef.current;
 
 		switch ( act ) {

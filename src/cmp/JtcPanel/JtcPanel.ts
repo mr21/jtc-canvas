@@ -10,10 +10,15 @@ const {
 	createElement: cE,
 } = React;
 
-export function JtcPanel( p ) {
+type props = {
+	playing: boolean,
+	onCallAction: ( act: string, arg0: any ) => void,
+};
+
+export function JtcPanel( p: props ) {
 	const {
-		playing = false,
-		onCallAction = jtcu_fun_noop,
+		playing,
+		onCallAction,
 		...props
 	} = p;
 
@@ -23,15 +28,15 @@ export function JtcPanel( p ) {
 	store.dur = dur;
 	store.onCallAction = onCallAction;
 
-	const onChangeDuration = useCallback( e => {
+	const onChangeDuration = useCallback( ( e: any ) => {
 		setDur( e.target.value );
 	}, [] );
 
-	const onFocusDuration = useCallback( e => {
+	const onFocusDuration = useCallback( ( e: any ) => {
 		e.target.select();
 	}, [] );
 
-	const onBlurDuration = useCallback( e => {
+	const onBlurDuration = useCallback( ( e: any ) => {
 		const tar = e.target;
 
 		if ( +tar.value < +tar.min ) {
@@ -39,7 +44,7 @@ export function JtcPanel( p ) {
 		}
 	}, [] );
 
-	const onClickPanel = useCallback( e => {
+	const onClickPanel = useCallback( ( e: any ) => {
 		const act = e.target.dataset.action;
 
 		switch ( act ) {
